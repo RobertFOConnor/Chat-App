@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "212166177340",
+    "firebase_url": "https://chatquest-55375.firebaseio.com",
+    "project_id": "chatquest-55375",
+    "storage_bucket": "chatquest-55375.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:212166177340:android:ff0d7bd5cc77ef91",
+        "android_client_info": {
+          "package_name": "com.yellowbytestudios.chatquest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "212166177340-9rc941hs6do74st9u9a2o5l8rvkr289f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.yellowbytestudios.chatquest",
+            "certificate_hash": "e4127eb3faa97512078bcc6cf4090f12f2b5a915"
+          }
+        },
+        {
+          "client_id": "212166177340-5ce4shtevf621rp3a298psej8qc1qsc5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBMe7FUryicuNZcrDWHSgKB1rBvTf_LXt0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "212166177340-5ce4shtevf621rp3a298psej8qc1qsc5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

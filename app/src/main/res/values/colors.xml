@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#F47983</color>
+    <color name="colorPrimaryDark">#F47983</color>
+    <color name="colorAccent">#BDC3C7</color>
+    <color name="wet_asphalt">#34495e</color>
+    <color name="white">#FFFFFF</color>
+    <color name="message_time">#555555</color>
+    <color name="friend_message_text_color">#777777</color>
+</resources>
