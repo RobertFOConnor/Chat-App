@@ -3,4 +3,5 @@
     <string name="input_hint">Aa</string>
     <string name="send_message">Send Message</string>
     <string name="profile_pic">Profile Picture</string>
+    <string name="sign_out">Sign out</string>
 </resources>

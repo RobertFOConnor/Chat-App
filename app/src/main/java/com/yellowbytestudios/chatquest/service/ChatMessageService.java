@@ -11,24 +11,25 @@ import android.support.v4.app.NotificationCompat;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.yellowbytestudios.chatquest.chatmessage.ChatMessage;
-import com.yellowbytestudios.chatquest.MainActivity;
 import com.yellowbytestudios.chatquest.MyChildEventListener;
 import com.yellowbytestudios.chatquest.R;
+import com.yellowbytestudios.chatquest.chatmessage.ChatMessage;
 
 public class ChatMessageService extends Service {
 
     public ChatMessageService() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("newRef");
+        DatabaseReference ref = database.getReference("chatrooms");
 
         ref.addChildEventListener(new MyChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                if (!MainActivity.active) {
-                    ChatMessage message = dataSnapshot.getValue(ChatMessage.class);
-                    triggerNotification(message);
-                }
+                //if(((String) dataSnapshot.getValue()).contains(myUID)) {
+                    /*if (!ChatRoomActivity.active) {
+                        ChatMessage message = dataSnapshotgetValue(ChatMessage.class);
+                        triggerNotification(message);
+                    }*/
+                //}
             }
         });
     }

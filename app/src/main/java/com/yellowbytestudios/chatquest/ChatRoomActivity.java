@@ -3,7 +3,6 @@ package com.yellowbytestudios.chatquest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -28,9 +27,10 @@ import com.yellowbytestudios.chatquest.chatmessage.MessageAdapter;
 import com.yellowbytestudios.chatquest.service.ChatMessageService;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class ChatRoomActivity extends AppCompatActivity {
 
     private final int SIGN_IN_REQUEST_CODE = 101;
     private DatabaseReference ref;
@@ -39,11 +39,14 @@ public class MainActivity extends AppCompatActivity {
     private List<ChatMessage> list;
     private MessageAdapter messageAdapter;
     public static boolean active;
+    public static String FRIEND_UID_KEY = "uid_key";
+    private String friendUID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_chat);
+        setupFriendUid();
         signInFirebaseUser();
         setupSendClickListener();
         active = true;
@@ -67,6 +70,13 @@ public class MainActivity extends AppCompatActivity {
             startActivityForResult(AuthUI.getInstance().createSignInIntentBuilder().build(), SIGN_IN_REQUEST_CODE);
         } else {
             onSuccessfulSignIn();
+        }
+    }
+
+    private void setupFriendUid() {
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            friendUID = getIntent().getExtras().getString(FRIEND_UID_KEY, "");
         }
     }
 
@@ -98,11 +108,15 @@ public class MainActivity extends AppCompatActivity {
                 // of ChatMessage to the Firebase database
                 String message = input.getText().toString();
                 if (message.length() > 0) {
-                    ref.push().setValue(new ChatMessage(message, displayName));
+                    postMessage(message);
                     input.setText(""); // Clear the input
                 }
             }
         });
+    }
+
+    private void postMessage(String message) {
+        ref.push().setValue(new ChatMessage(message, displayName));
     }
 
     /*private void setupProfilePic(FirebaseUser user) {
@@ -114,13 +128,14 @@ public class MainActivity extends AppCompatActivity {
 
     private void onSuccessfulSignIn() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
         if (user != null) {
             displayName = user.getDisplayName();
         }
         setupMessageListView();
         setupActionBar();
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        ref = database.getReference("newRef");
+
+        ref = database.getReference("chatrooms").child(getRoomName(user));
 
         // User is already signed in. Therefore, display
         // a welcome Toast
@@ -169,12 +184,20 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         } else if (item.getItemId() == android.R.id.home) {
-            NavUtils.navigateUpFromSameTask(this);
+            finish();
         }
         return true;
     }
 
     private void showToast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    public String getRoomName(FirebaseUser user) {
+        ArrayList<String> uidOrder = new ArrayList<>();
+        uidOrder.add(user.getUid());
+        uidOrder.add(friendUID);
+        Collections.sort(uidOrder);
+        return "room_" + uidOrder.get(0) + "_" + uidOrder.get(1);
     }
 }
