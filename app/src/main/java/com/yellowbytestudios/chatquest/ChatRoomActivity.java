@@ -30,6 +30,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
+
 public class ChatRoomActivity extends AppCompatActivity {
 
     private final int SIGN_IN_REQUEST_CODE = 101;
@@ -86,6 +88,7 @@ public class ChatRoomActivity extends AppCompatActivity {
             actionBar.setTitle(displayName);
             actionBar.setSubtitle("Active 3 days ago");
             actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setElevation(0);
         }
     }
 
@@ -96,6 +99,7 @@ public class ChatRoomActivity extends AppCompatActivity {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         listOfMessages.setLayoutManager(mLayoutManager);
         listOfMessages.setAdapter(messageAdapter);
+        OverScrollDecoratorHelper.setUpOverScroll(listOfMessages, OverScrollDecoratorHelper.ORIENTATION_VERTICAL);
     }
 
     private void setupSendClickListener() {
